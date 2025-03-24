@@ -10,25 +10,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let currentCharacter = null;
 
-    // Fetch and display characters in the character bar
     function fetchCharacters() {
         fetch("http://localhost:3000/characters")
             .then(response => response.json())
             .then(data => {
-                console.log("Characters fetched:", data); // Debugging log
+                console.log("Characters fetched:", data); 
                 characterBar.innerHTML = "";
                 data.forEach(character => createCharacterSpan(character));
             })
             .catch(error => console.error("Error fetching characters:", error));
     }
 
-    // Create a span for each character
     function createCharacterSpan(character) {
         const span = document.createElement("span");
         span.textContent = character.name;
         span.classList.add("character");
 
-        // Add event listener to display character details on click
         span.addEventListener("click", () => {
             displayCharacter(character);
         });
@@ -36,7 +33,6 @@ document.addEventListener("DOMContentLoaded", () => {
         characterBar.appendChild(span);
     }
 
-    // Display character details in the detailed info section
     function displayCharacter(character) {
         currentCharacter = character;
         characterName.textContent = character.name;
@@ -45,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         characterVotes.textContent = character.votes;
     }
 
-    // Handle vote submission
     voteForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const voteInput = document.getElementById("votes");
@@ -56,10 +51,9 @@ document.addEventListener("DOMContentLoaded", () => {
             characterVotes.textContent = currentCharacter.votes;
         }
 
-        voteInput.value = ""; // Clear input field
-    });
+        voteInput.value = ""; 
+    })
 
-    // Handle resetting votes
     resetButton.addEventListener("click", () => {
         if (currentCharacter) {
             currentCharacter.votes = 0;
@@ -67,6 +61,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Fetch characters on page load
     fetchCharacters();
 });
